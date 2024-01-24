@@ -1,0 +1,56 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+# Open a CSV file for writing
+csv_file = open('realtor_properties.csv', 'w', newline='', encoding='utf-8')
+csv_writer = csv.writer(csv_file)
+csv_writer.writerow(['Link', 'Price (USD)', 'Price (EUR)', 'Address', 'Features', 'Property Type'])
+
+for i in range(25):
+    try:
+        # Replace the URL with the desired Realtor.com page
+        url = f"https://www.realtor.com/international/eg/p{i}?lang=en"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # Extracting information from each property card
+            property_cards = soup.find('div', {'style': "margin-top:24px"})
+
+            for card in property_cards:
+                # Extract property details
+                link = card.find('a')['href']
+                price_usd = card.find('div', class_='displayConsumerPrice').text.strip()
+                price_eur = card.find('div', class_='displayListingPrice').text.strip()
+                address = card.find('div', class_='address').text.strip()
+                features = card.find('div', class_='features').text.strip()
+                property_type = card.find('div', class_='property-type').text.strip()
+
+                # Write the extracted information to the CSV file
+                csv_writer.writerow([link, price_usd, price_eur, address, features, property_type])
+
+                # Print or store the extracted information
+                print(f"Link: {link}")
+                print(f"Price (USD): {price_usd}")
+                print(f"Price (EUR): {price_eur}")
+                print(f"Address: {address}")
+                print(f"Features: {features}")
+                print(f"Property Type: {property_type}")
+                print("=" * 50)
+
+        else:
+            print(f"Failed to retrieve the page. Status code: {response.status_code}")
+
+        print(f'Page {i} Scrapped Successfully.')
+        print("\n", 30 * '*')
+        print("\n", 30 * '*')
+
+    except Exception as e:
+        print(f"Error processing page {i}: {e}")
+        break
+
+# Close the CSV file
+csv_file.close()
+print('File Created')
