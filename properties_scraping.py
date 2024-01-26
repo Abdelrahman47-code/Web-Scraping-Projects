@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+from urllib.parse import urlparse, parse_qs
 
 countries = {'eg': 'Egypt', 'ae': 'UAE', 'bh': 'Bahrain', 'qa': 'Qatar', 'sa': 'Saudi Arabia'}
 total = 0
@@ -11,7 +12,7 @@ with open('scraped_properties.csv', 'w', newline='', encoding='utf-8') as csvfil
     csv_writer = csv.writer(csvfile)
 
     # Write the header row to the CSV file
-    csv_writer.writerow(['Title', 'Type', 'Price', 'Location', 'Country', 'Bedrooms', 'Bathrooms', 'Area', 'URL', 'Phone', 'WhatsApp'])
+    csv_writer.writerow(['Title', 'Type', 'Price', 'Location', 'Country', 'Bedrooms', 'Bathrooms', 'Area', 'URL', 'Phone', 'WhatsApp Number', 'WhatsApp URL'])
 
     for k, v in countries.items():
         print(20 * '*', 'Properties in', v, 20 * '*')
@@ -41,8 +42,26 @@ with open('scraped_properties.csv', 'w', newline='', encoding='utf-8') as csvfil
                         area = card.select_one('[data-testid="property-card-spec-area"]').text.strip()
                         urls = card.find_all('a')
 
+                        # Extract WhatsApp number from the URL
+                        whatsapp_url = urls[3].get('href')
+                        whatsapp_number = whatsapp_url.split("&")[0].split("=")[1]
+                        
+                        # Print or process the extracted information
+                        print(f"Title: {title}")
+                        print(f"Type: {property_type}")
+                        print(f"Price: {price}")
+                        print(f"Location: {location}")
+                        print(f"Bedrooms: {bedrooms}")
+                        print(f"Bathrooms: {bathrooms}")
+                        print(f"Area: {area}")
+                        print(f"URL: {urls[0].get('href')}")
+                        print(f"Phone: {urls[2].get('href').split(':')[1]}")
+                        print(f"WhatsApp Number: {whatsapp_number}")
+                        print(f"WhatsApp URL: {whatsapp_url}")
+                        print("\n---\n")
+
                         # Write the extracted information to the CSV file
-                        csv_writer.writerow([title, property_type, price, location, v, bedrooms, bathrooms, area, urls[0].get('href'), urls[2].get('href').split(':')[1], urls[3].get('href')])
+                        csv_writer.writerow([title, property_type, price, location, v, bedrooms, bathrooms, area, urls[0].get('href'), urls[2].get('href').split(':')[1], whatsapp_number, whatsapp_url])
                         counter += 1
                         total += 1
 
@@ -57,4 +76,5 @@ with open('scraped_properties.csv', 'w', newline='', encoding='utf-8') as csvfil
         print(60 * '*')
 
 print(f'The Total Scrapped Properties:', total)
-# Alhumdallah
+
+# Alhumdallah for completing this!
