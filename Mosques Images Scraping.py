@@ -1,12 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
+#################### Codes of Scraping Images from Different Websites #####################
+## Make sure to write the url correctly and the destinations folders to save the images. ##
 
-# # Codes of Scraping Images from Different Websites
-# 
-# Make sure to write the url correctly and the destinations folders to save the images.
-
-# In[ ]:
-
+#################### Import the Libraries ####################
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -16,9 +11,7 @@ import csv
 import os
 import requests
 
-
-# In[ ]:
-
+#################### Download Function ####################
 
 # Function to download an image
 def download_image(image_url, destination_folder, image_name):
@@ -39,11 +32,7 @@ def download_image(image_url, destination_folder, image_name):
     except Exception as e:
         print(f"Error downloading image: {str(e)}")
 
-
-# # Getty Images
-
-# In[ ]:
-
+#################### Download from Getty ####################
 
 # Set up the Selenium WebDriver
 driver = webdriver.Chrome()
@@ -104,11 +93,7 @@ finally:
     # Close the browser
     driver.quit()
 
-
-# # iStock
-
-# In[ ]:
-
+#################### Download from iStock ####################
 
 # Set up the Selenium WebDriver
 driver = webdriver.Chrome()
@@ -168,11 +153,7 @@ finally:
     # Close the browser
     driver.quit()
 
-
-# # Shutterstock
-
-# In[ ]:
-
+#################### Download from Shutterstock ####################
 
 # Set up the Selenium WebDriver
 driver = webdriver.Chrome()
@@ -231,11 +212,7 @@ finally:
     # Close the browser
     driver.quit()
 
-
-# # Dreamstime
-
-# In[ ]:
-
+#################### Download from Dreamstime ####################
 
 # Set up the Selenium WebDriver
 driver = webdriver.Chrome()
@@ -298,11 +275,7 @@ finally:
     # Close the browser
     driver.quit()
 
-
-# # Renaming the Images
-
-# In[ ]:
-
+#################### Renaming the Images ####################
 
 import os
 
@@ -361,12 +334,3 @@ for i, old_name in enumerate(image_files, start=1):
     print(f"Renamed: {old_name} to {new_name}")
     
 print(f"\n***** All Images Renamed Successfully in '{folder_path}' Folder *****\n")
-
-
-# # Made by: Abdelrahman Eldaba 👨‍💻
-# 
-# Check out my portfolio [Here](https://www.linkedin.com/posts/abdelrahman-eldaba-739805192_datascience-dataanalysis-webscraping-activity-7156428468711219201-gtWA/) 🌟
-# 
-# Connect with me on [LinkedIn](https://www.linkedin.com/in/abdelrahman-eldaba-739805192/) 🌐
-# 
-# Look at my [GitHub](https://github.com/Abdelrahman47-code) 🚀
