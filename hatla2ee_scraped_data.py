@@ -118,7 +118,7 @@ with open('hatla2ee_scraped_data.csv', 'w', newline='', encoding='utf-8') as csv
                 writer.writerow({'Name': car_name, 'Price': car_price, 'Color': car_color, 'Mileage': mileage, 'Make': make, 'Model': model, 'City': city, 'Date Displayed': date_displayed, 'Automatic Transmission': is_automatic, 'Air Conditioner': has_air_conditioner, 'Power Steering': has_power_steering, 'Remote Control': has_remote_control, 'Item URL': f"https://eg.hatla2ee.com{item_url}"})
                 counter += 1
 
-            print(f"***** Page {i} Scrapped Successfully with {counter} Items*****")
+            print(f"***** Page {i} Scrapped Successfully with {counter} Items *****")
             total_counter += counter
             sleep(5)
         except Exception as e:
