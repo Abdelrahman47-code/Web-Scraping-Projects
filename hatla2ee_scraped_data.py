@@ -90,22 +90,22 @@ with open('hatla2ee_scraped_data.csv', 'w', newline='', encoding='utf-8') as csv
                     icons_element = card.find("div", class_="otherData_carType")
 
                     # Check for the existence of each icon and update variables accordingly
-                    is_automatic = 'no'
-                    has_air_conditioner = 'no'
-                    has_power_steering = 'no'
-                    has_remote_control = 'no'
+                    is_automatic = 'No'
+                    has_air_conditioner = 'No'
+                    has_power_steering = 'No'
+                    has_remote_control = 'No'
 
                     if icons_element.find('i', {'title': 'Automatic'}):
-                        is_automatic = 'yes'
+                        is_automatic = 'Yes'
 
                     if icons_element.find('i', {'title': 'Air Conditioner'}):
-                        has_air_conditioner = 'yes'
+                        has_air_conditioner = 'Yes'
 
                     if icons_element.find('i', {'title': 'Power Steering'}):
-                        has_power_steering = 'yes'
+                        has_power_steering = 'Yes'
 
                     if icons_element.find('i', {'title': 'Remote Control'}):
-                        has_remote_control = 'yes'
+                        has_remote_control = 'Yes'
                 except:
                     pass
                 
